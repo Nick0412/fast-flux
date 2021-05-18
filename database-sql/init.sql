@@ -7,7 +7,7 @@ BEGIN
         id              serial,
         first_name      varchar(50) NOT NULL,
         last_name       varchar(50),
-        handle          varchar(15) NOT NULL UNIQUE,
+        handle          varchar(15) NOT NULL,
         profile_picture bytea,
         loc             varchar(50) NOT NULL,
         birth_date      date NOT NULL,
