@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const pools = require.main.require('./database/pgdb.js')
 
 // Get all users from database
 router.get('/users', (req, res) => {
