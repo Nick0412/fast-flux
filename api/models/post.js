@@ -1,13 +1,13 @@
 const { DataTypes } = require('sequelize');
 const db = require('../database/db-orm')
 
-const Follower = db.define('followers', {
+const Post = db.define('posts', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    follower: {
+    user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -15,20 +15,15 @@ const Follower = db.define('followers', {
             key: 'id'
         }
     },
-    following: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'users',
-            key: 'id'
-        }
+    content: {
+        type: DataTypes.STRING(128)
     },
-    follow_timestamp: {
+    post_timestamp: {
         type: DataTypes.DATE,
         allowNull: false
-    }
+    },
 }, {
     schema: 'ff'
 });
 
-module.exports = Follower;
+module.exports = Post;
