@@ -30,6 +30,10 @@ const User = db.define('users',{
         type: DataTypes.DATEONLY,
         allowNull: false
     },
+    join_timestamp: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
     password: {
         type: DataTypes.STRING(80),
         allowNull: false

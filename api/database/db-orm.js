@@ -5,7 +5,11 @@ const sequelize = new Sequelize({
     port:       process.env.PGPORT,
     username:   process.env.PGUSER,
     password:   process.env.PGPASS,
-    database:   process.env.PGDB
+    database:   process.env.PGDB,
+    dialect: 'postgres',
+    define: {
+        timestamps: false
+    }
 });
 
 module.exports = sequelize;
