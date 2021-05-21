@@ -38,8 +38,6 @@ const User = db.define('users',{
         type: DataTypes.STRING(80),
         allowNull: false
     }
-}, {
-    schema: 'ff'
 });
 
 module.exports = User;

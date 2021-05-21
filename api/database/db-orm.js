@@ -7,6 +7,7 @@ const sequelize = new Sequelize({
     password:   process.env.PGPASS,
     database:   process.env.PGDB,
     dialect: 'postgres',
+    schema: 'ff',
     define: {
         timestamps: false
     }

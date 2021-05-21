@@ -22,8 +22,6 @@ const Post = db.define('posts', {
         type: DataTypes.DATE,
         allowNull: false
     },
-}, {
-    schema: 'ff'
 });
 
 module.exports = Post;

@@ -27,8 +27,6 @@ const Follower = db.define('followers', {
         type: DataTypes.DATE,
         allowNull: false
     }
-}, {
-    schema: 'ff'
 });
 
 module.exports = Follower;

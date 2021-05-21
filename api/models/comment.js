@@ -30,8 +30,6 @@ const Comment = db.define('comments', {
         type: DataTypes.DATE,
         allowNull: false
     }
-}, {
-    schema: 'ff'
 });
 
 module.exports = Comment;
