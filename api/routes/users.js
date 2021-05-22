@@ -12,6 +12,10 @@ const userSchema = joi.object({
     password: joi.string().required(),
     birth_date: joi.date().required()
 });
+const loginSchema = joi.object({
+    handle: joi.string().required(),
+    password: joi.string().required()
+});
 const userOptions = {
     allowUnknown: true,
     abortEarly: false
@@ -61,6 +65,42 @@ router.post('/users', async (req, res) => {
         .catch((err) => {
             res.status(400).send(err);
         })
+    }
+});
+
+router.post('/users/login', async (req, res) => {
+    const { error, value } = loginSchema.validate(req.body, userOptions);
+    if (error) {
+        errorList = error.details.map(e => e.message).join(',');
+        res.status(400).send(errorList);
+    }
+    // If the request is valid.
+    else {
+        User.findOne({
+            where: {
+                handle: req.body.handle
+            },
+            attributes: ['password']
+        })
+        .then(async (model) => {
+            // If the model is null, then the user does not exist in the database.
+            if (model == null) {
+                res.status(400).send('Handle does not exist.');
+            }
+            // User exists in the database.
+            else {
+                const login = await bcrypt.compare(req.body.password, model.password);
+                if (login) {
+                    res.status(200).send('Logged In!');
+                }
+                else {
+                    res.status(400).send('Password Incorrect.');
+                }
+            }
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        });
     }
 });
 
