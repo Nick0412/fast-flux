@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const joi = require('joi');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const saltRounds = 10;
@@ -80,7 +81,7 @@ router.post('/users/login', async (req, res) => {
             where: {
                 handle: req.body.handle
             },
-            attributes: ['password']
+            attributes: ['password', 'id', 'handle']
         })
         .then(async (model) => {
             // If the model is null, then the user does not exist in the database.
@@ -91,7 +92,12 @@ router.post('/users/login', async (req, res) => {
             else {
                 const login = await bcrypt.compare(req.body.password, model.password);
                 if (login) {
-                    res.status(200).send('Logged In!');
+                    const user = { 
+                        name: model.handle,
+                        id: model.id
+                    };
+                    const token = jwt.sign(user, process.env.TOKEN_SECRET, {expiresIn: '2h'});
+                    res.json({token: token});
                 }
                 else {
                     res.status(400).send('Password Incorrect.');
