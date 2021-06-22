@@ -4,10 +4,13 @@ const bcrypt = require('bcrypt');
 const joi = require('joi');
 const jwt = require('jsonwebtoken');
 
-const User = require('../models/user');
+const User = require('../models/UserModel');
+const UserService = require('../services/UserService');
+
 const saltRounds = 10;
 const userSchema = joi.object({
     first_name: joi.string().required(),
+    last_name: joi.string(),
     handle: joi.string().required(),
     loc: joi.string().required(),
     password: joi.string().required(),
@@ -22,6 +25,14 @@ const userOptions = {
     abortEarly: false
 };
 
+router.get('/users', async (req, res) => {
+    const user_list = await User.findAll({
+        attributes: ['first_name']
+    });
+    // res.send("Got it");
+    res.send(user_list.map(m => m.first_name).join(','));
+});
+
 // Create a new user if their handle does not exist.
 router.post('/users', async (req, res) => {
     const { error, value } = userSchema.validate(req.body, userOptions);
@@ -29,8 +40,12 @@ router.post('/users', async (req, res) => {
         errorList = error.details.map(e => e.message).join(',');
         res.status(400).send(errorList);
     }
-    // If our schema is valid, hash the password and insert into the database.
     else {
+        const {status, message} = await UserService.create(req.body);
+        res.status(status).send(message);
+    }
+    // If our schema is valid, hash the password and insert into the database.
+    /*else {
         const salt = await bcrypt.genSalt(saltRounds);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
         User.findOne({
@@ -66,7 +81,7 @@ router.post('/users', async (req, res) => {
         .catch((err) => {
             res.status(400).send(err);
         })
-    }
+    }*/
 });
 
 router.post('/users/login', async (req, res) => {

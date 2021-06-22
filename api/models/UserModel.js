@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../database/db-orm')
 
-const User = db.define('users',{
+const UserModel = db.define('users',{
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -40,4 +40,4 @@ const User = db.define('users',{
     }
 });
 
-module.exports = User;
+module.exports = UserModel;
