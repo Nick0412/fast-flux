@@ -51,39 +51,6 @@ router.post('/users/login', async (req, res) => {
             key: key
         });
     }
-    // If the request is valid.
-    /*else {
-        User.findOne({
-            where: {
-                handle: req.body.handle
-            },
-            attributes: ['password', 'id', 'handle']
-        })
-        .then(async (model) => {
-            // If the model is null, then the user does not exist in the database.
-            if (model == null) {
-                res.status(400).send('Handle does not exist.');
-            }
-            // User exists in the database.
-            else {
-                const login = await bcrypt.compare(req.body.password, model.password);
-                if (login) {
-                    const user = { 
-                        name: model.handle,
-                        id: model.id
-                    };
-                    const token = jwt.sign(user, process.env.TOKEN_SECRET, {expiresIn: '2h'});
-                    res.json({token: token});
-                }
-                else {
-                    res.status(400).send('Password Incorrect.');
-                }
-            }
-        })
-        .catch((err) => {
-            res.status(400).send(err);
-        });
-    }*/
 });
 
 module.exports = router;

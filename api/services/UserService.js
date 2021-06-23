@@ -37,7 +37,7 @@ class UserService {
             catch (ex) {
                 return {
                     status: 400,
-                    message: "Exception "
+                    message: "Exception."
                 };
             }
         }
