@@ -1,7 +1,7 @@
 DO 
 $initial$
 BEGIN
-    CREATE SCHEMA IF NOT EXISTS ff;
+    CREATE SCHEMA IF NOT EXISTS ff AUTHORIZATION nick;
 
     CREATE TABLE IF NOT EXISTS ff.users (
         id              serial,

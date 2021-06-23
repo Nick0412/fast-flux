@@ -25,14 +25,6 @@ const userOptions = {
     abortEarly: false
 };
 
-router.get('/users', async (req, res) => {
-    const user_list = await User.findAll({
-        attributes: ['first_name']
-    });
-    // res.send("Got it");
-    res.send(user_list.map(m => m.first_name).join(','));
-});
-
 // Create a new user if their handle does not exist.
 router.post('/users', async (req, res) => {
     const { error, value } = userSchema.validate(req.body, userOptions);
@@ -44,44 +36,6 @@ router.post('/users', async (req, res) => {
         const {status, message} = await UserService.create(req.body);
         res.status(status).send(message);
     }
-    // If our schema is valid, hash the password and insert into the database.
-    /*else {
-        const salt = await bcrypt.genSalt(saltRounds);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        User.findOne({
-            where: {
-                handle: req.body.handle
-            }
-        })
-        .then((model) => {
-            // No model exists in the database.
-            if (model == null) {
-                User.create({
-                    first_name: req.body.first_name,
-                    last_name: req.body.last_name,
-                    handle: req.body.handle,
-                    profile_picture: req.body.profile_picture,
-                    loc: req.body.loc,
-                    join_timestamp: new Date(Date.now()).toISOString(),
-                    password: hashedPassword,
-                    birth_date: new Date(req.body.birth_date)
-                })
-                .then(() => {
-                    res.status(200).send('User created!');
-                })
-                .catch((err) => {
-                    res.status(400).send(err);
-                });
-            } 
-            // Model does exist in database.
-            else { 
-                res.status(400).send('User not created: \"handle\" in use already.');
-            }
-        })
-        .catch((err) => {
-            res.status(400).send(err);
-        })
-    }*/
 });
 
 router.post('/users/login', async (req, res) => {
@@ -90,8 +44,15 @@ router.post('/users/login', async (req, res) => {
         errorList = error.details.map(e => e.message).join(',');
         res.status(400).send(errorList);
     }
-    // If the request is valid.
     else {
+        const { status, message, key } = await UserService.login(req.body);
+        res.status(status).json({
+            message: message,
+            key: key
+        });
+    }
+    // If the request is valid.
+    /*else {
         User.findOne({
             where: {
                 handle: req.body.handle
@@ -122,7 +83,7 @@ router.post('/users/login', async (req, res) => {
         .catch((err) => {
             res.status(400).send(err);
         });
-    }
+    }*/
 });
 
 module.exports = router;
