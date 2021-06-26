@@ -85,6 +85,27 @@ class UserService {
             }
         }
     }
+
+    static async getAllUsers() {
+        let userList = await UserModel.findAll();
+        userList = userList.map((m) => {
+            return {
+                id: m.id,
+                first_name: m.first_name,
+                last_name: m.last_name,
+                handle: m.handle,
+                profile_picture: m.profile_picture,
+                loc: m.loc,
+                birth_date: m.birth_date,
+                join_timestamp: m.join_timestamp
+            }
+        });
+        return userList;
+    }
+
+    static async getUser(userID) {
+        
+    }
 }
 
 module.exports = UserService;

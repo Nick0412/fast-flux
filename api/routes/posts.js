@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const expressJwt = require('express-jwt');
 const PostService = require('../services/PostService');
+const config = require('../config/index');
 
 router.use(expressJwt({
-    secret: process.env.TOKEN_SECRET,
+    secret: config.token_secret,
     algorithms: ['HS256']
 }), (err, req, res, next) => {
     if (err.name === "UnauthorizedError") return res.status(400).send('Invalid token.');
