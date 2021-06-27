@@ -1,14 +1,14 @@
-require('dotenv').config();
-const express = require('express');
-const app = express();
+require('dotenv').config()
+const express = require('express')
+const app = express()
 
-const users = require('./routes/users');
-const posts = require('./routes/posts');
+const UserRoute = require('./routes/UserRoute')
+const PostRoute = require('./routes/PostRoute')
 
-app.use(express.json());
-app.use(users);
-app.use(posts);
+app.use(express.json())
+app.use(UserRoute)
+app.use(PostRoute)
 
 app.listen(process.env.PORT, () => {
-    console.log('Listening');
-});
+  console.log('Listening')
+})
