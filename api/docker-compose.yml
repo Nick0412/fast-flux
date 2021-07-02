@@ -1,18 +1,10 @@
 version: '3'
 services:
     web:
+        network_mode: "host"
         env_file:
             - .env 
         build: .
         ports:
             - "3000:3000"
-    db:
-        image: "postgres"
-        environment:
-            POSTGRES_PASSWORD: password
-        volumes:
-            - db-data:/foo
-
-volumes:
-    db-data:
         
