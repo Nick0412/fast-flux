@@ -30,7 +30,11 @@ const UserModel = db.define('users', {
     type: DataTypes.DATEONLY,
     allowNull: false
   },
-  join_timestamp: {
+  created_on: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  modified_on: {
     type: DataTypes.DATE,
     allowNull: false
   },

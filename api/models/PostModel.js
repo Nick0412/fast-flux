@@ -18,9 +18,12 @@ const Post = db.define('posts', {
   content: {
     type: DataTypes.STRING(128)
   },
-  post_timestamp: {
+  created_on: {
     type: DataTypes.DATE,
     allowNull: false
+  },
+  modified_on: {
+    type: DataTypes.DATE
   }
 })
 

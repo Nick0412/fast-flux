@@ -11,7 +11,7 @@ BEGIN
         profile_picture bytea,
         loc             varchar(50) NOT NULL,
         birth_date      date NOT NULL,
-        join_timestamp  timestamptz NOT NULL,
+        created_on      timestamptz NOT NULL,
         password        varchar(80) NOT NULL,
         PRIMARY KEY (id),
         UNIQUE (handle)
@@ -21,7 +21,7 @@ BEGIN
         id                  serial,
         follower            integer NOT NULL,
         following           integer NOT NULL,
-        follow_timestamp    timestamptz NOT NULL,
+        created_on    timestamptz NOT NULL,
         FOREIGN KEY (follower) REFERENCES ff.users (id),
         FOREIGN KEY (following) REFERENCES ff.users (id),
         PRIMARY KEY (id)
@@ -31,7 +31,7 @@ BEGIN
         id              serial,
         user_id         integer NOT NULL,
         content         varchar(128),
-        post_timestamp  timestamptz NOT NULL,
+        created_on      timestamptz NOT NULL,
         FOREIGN KEY (user_id) REFERENCES ff.users (id),
         PRIMARY KEY (id)
     );
@@ -41,7 +41,8 @@ BEGIN
         user_id             integer NOT NULL,
         post                integer NOT NULL,
         content             varchar(128),
-        comment_timestamp   timestamptz NOT NULL,
+        created_on          timestamptz NOT NULL,
+        modified_on         timestamptz NOT NULL,
         FOREIGN KEY (user_id) REFERENCES ff.users (id),
         FOREIGN KEY (post) REFERENCES ff.posts (id),
         PRIMARY KEY (id)
