@@ -12,6 +12,7 @@ BEGIN
         loc             varchar(50) NOT NULL,
         birth_date      date NOT NULL,
         created_on      timestamptz NOT NULL,
+        modified_on     timestamptz,
         password        varchar(80) NOT NULL,
         PRIMARY KEY (id),
         UNIQUE (handle)

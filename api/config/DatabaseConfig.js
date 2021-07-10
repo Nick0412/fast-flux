@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize')
-const config = require('../config/index')
+const config = require('./index')
 
 const sequelize = new Sequelize({
   host: config.postgres.host,

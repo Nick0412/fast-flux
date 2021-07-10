@@ -42,6 +42,23 @@ router.post('/users', async (req, res) => {
   }
 })
 
+// Moidfy information about user
+// router.put('/users/:id', async (req, res) => {
+//   const userId = req.params.id
+//   const passwordSchema = joi.object({
+//     password: joi.string().required
+//   })
+//   const { error, value } = passwordSchema.validate(req.body, userOptions)
+//   if (error) {
+//     const errorList = error.details.map(e => e.message).join(',')
+//     return res.status(400).send(errorList)
+//   } else {
+//     const updateData = req.body
+//     updateData.id = userId
+//     await UserService.update(updateData)
+//   }
+// })
+
 router.post('/users/login', async (req, res) => {
   const loginSchema = joi.object({
     handle: joi.string().required(),

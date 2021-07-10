@@ -1,6 +1,7 @@
 const UserModel = require('../models/UserModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { UserEmitter, UserEvents } = require('../events/UserEvents')
 
 const saltRounds = 10
 
@@ -25,10 +26,12 @@ class UserService {
           handle: userData.handle,
           profile_picture: userData.profile_picture,
           loc: userData.loc,
-          join_timestamp: new Date(Date.now()).toISOString(),
+          created_on: new Date(Date.now()).toISOString(),
           password: hashedPassword,
           birth_date: new Date(userData.birth_date)
         })
+        delete userData.password
+        UserEmitter.emit(UserEvents.USER_CREATED, userData)
         return {
           status: 200,
           message: 'Successfully Created'
@@ -36,7 +39,7 @@ class UserService {
       } catch (ex) {
         return {
           status: 400,
-          message: 'Exception.'
+          message: 'Exception. ' + ex
         }
       }
     }
@@ -98,7 +101,7 @@ class UserService {
         profile_picture: m.profile_picture,
         loc: m.loc,
         birth_date: m.birth_date,
-        join_timestamp: m.join_timestamp
+        created_on: m.created_on
       }
     })
     return userList
@@ -121,6 +124,10 @@ class UserService {
       return user
     }
   }
+
+  // static async update (updateData) {
+
+  // }
 }
 
 module.exports = UserService

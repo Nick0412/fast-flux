@@ -10,5 +10,6 @@ module.exports = {
     password: process.env.PGPASS,
     database: process.env.PGDB
   },
-  token_secret: process.env.TOKEN_SECRET
+  token_secret: process.env.TOKEN_SECRET,
+  kafka_broker: process.env.KAFKA_BROKER
 }

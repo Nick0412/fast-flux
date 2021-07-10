@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const db = require('../database/db-orm')
+const db = require('../config/DatabaseConfig')
 
 const UserModel = db.define('users', {
   id: {
@@ -36,7 +36,7 @@ const UserModel = db.define('users', {
   },
   modified_on: {
     type: DataTypes.DATE,
-    allowNull: false
+    allowNull: true
   },
   password: {
     type: DataTypes.STRING(80),

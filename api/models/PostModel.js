@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const db = require('../database/db-orm')
+const db = require('../config/DatabaseConfig')
 
 const Post = db.define('posts', {
   id: {
