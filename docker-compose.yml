@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+    webapp:
+        build: ./api
+        env_file:
+            - ./api/.env 
+        ports:
+            - "3000:3000"
+        
