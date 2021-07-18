@@ -1,7 +1,8 @@
 version: "3.3"
 services:
     webapp:
-        build: ./api
+        # build: ./api
+        image: nick0412/testing:rel
         env_file:
             - ./api/.env 
         ports:
