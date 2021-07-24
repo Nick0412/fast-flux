@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: webapp
+  name: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: webapp
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: webapp
+    spec:
+      containers:
+        - env:
+            - name: KAFKA_BROKER
+              valueFrom:
+                configMapKeyRef:
+                  key: KAFKA_BROKER
+                  name: api--env
+            - name: PGDB
+              valueFrom:
+                configMapKeyRef:
+                  key: PGDB
+                  name: api--env
+            - name: PGHOST
+              valueFrom:
+                configMapKeyRef:
+                  key: PGHOST
+                  name: api--env
+            - name: PGPASS
+              valueFrom:
+                configMapKeyRef:
+                  key: PGPASS
+                  name: api--env
+            - name: PGPORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PGPORT
+                  name: api--env
+            - name: PGUSER
+              valueFrom:
+                configMapKeyRef:
+                  key: PGUSER
+                  name: api--env
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PORT
+                  name: api--env
+            - name: TOKEN_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: TOKEN_SECRET
+                  name: api--env
+          image: nick0412/testing:rel
+          name: webapp
+          ports:
+            - containerPort: 3000
+          resources: {}
+      restartPolicy: Always
+status: {}

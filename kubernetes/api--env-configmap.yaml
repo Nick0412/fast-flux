@@ -1,0 +1,16 @@
+apiVersion: v1
+data:
+  KAFKA_BROKER: 192.168.68.80:9092
+  PGDB: fast_flux
+  PGHOST: 192.168.68.80
+  PGPASS: nick
+  PGPORT: "5432"
+  PGUSER: nick
+  PORT: "3000"
+  TOKEN_SECRET: 693b077c761287e6d7d5b48c7564b612e242c4a098d51c8877bb6a700d692acf1e2a23e2a689360c21328b683d55389547b57e573f34b0a9d8462c941727d657
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: webapp-api--env
+  name: api--env
